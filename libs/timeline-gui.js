@@ -40,22 +40,22 @@ Timeline.prototype.initGUI = function() {
   this.draggingKeys = false;
   this.draggingTimeScale = false;
   this.selectedKeys = [];
-  this.timeScale = 1;
+  this.timeScale = 10;
 
   this.trackNameCounter = 0;
   this.initTracks();
   this.load();
-
-  this.container = document.createElement("div");
+  
+  this.container = document.getElementById("timeline");
   this.container.style.width = "100%";
   this.container.style.height = this.canvasHeight + "px";
   this.container.style.background = "#EEEEEE";
   this.container.style.position = "fixed";
   this.container.style.left = "0px";
   this.container.style.bottom = "0px";
-  document.body.appendChild(this.container);
+  //document.body.appendChild(this.container);
 
-  this.splitter = document.createElement("div");
+  this.splitter = document.getElementById("splitter");
   this.splitter.style.width = "100%";
   this.splitter.style.height = "8px";
   this.splitter.style.cursor = "ns-resize";
@@ -79,11 +79,12 @@ Timeline.prototype.initGUI = function() {
     document.body.addEventListener("mousemove", mouseMove, false);
     document.body.addEventListener("mouseup", mouseUp, false);
   }, false);
-  document.body.appendChild(this.splitter);
+    //document.body.appendChild(this.splitter);
 
   this.canvas = document.createElement("canvas");
   this.c = this.canvas.getContext("2d");
   this.canvas.width = 0;
+
   this.container.appendChild(this.canvas);
 
 
