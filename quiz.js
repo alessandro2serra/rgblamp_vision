@@ -46,14 +46,14 @@ new Vue({
     <header>
       <div >
         <a href="https://designstem.github.io/homepage">Home</a>
-        → <a href="https://designstem.github.io/homepage/colors">Colors</a>
+        → <a href="https://designstem.github.io/homepage/rgblamp">RGB Lamp</a>
 	→ <a href="./index.html">Color Vision</a>
       </div>
     </header>
     <div  style="display: flex"> 
     <div style="width: 24rem; padding: 2rem; border-right: var(--border-width) solid var(--primary)">
           <h1 
-               style="font-size: 5rem; line-height: 5rem;">RGB Colors</h1>
+               style="font-size: 4rem; line-height: 4rem;">RGB Quiz</h1>
 
         <div>
          <h1 class="button_primary" v-if="!initialized" @click="makeTarget()"> Start </h1>
