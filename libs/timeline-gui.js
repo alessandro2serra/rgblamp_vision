@@ -40,7 +40,7 @@ Timeline.prototype.initGUI = function() {
   this.draggingKeys = false;
   this.draggingTimeScale = false;
   this.selectedKeys = [];
-  this.timeScale = 10;
+  this.timeScale = 0.5;
 
   this.trackNameCounter = 0;
   this.initTracks();
