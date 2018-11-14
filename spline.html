@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    div.fig {
+	border:solid 1px black;
+	margin:20px;
+	width:300px;
+	height:255px;
+	float:left;
+    }
+    
+    #box {
+    }
+    div.color {
+	border:solid 1px black;
+	margin:20px;
+	width:300px;
+	height:255px;
+	float:left;
+    }
+    
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/katex/dist/katex.min.css">
+  <link rel="stylesheet" href="https://designstem.github.io/framework/style.css">
+  <script src="./libs/jquery.min.js"></script>
+  <script src="./libs/underscore-min.js"></script> <!-- filter, map etc. -->
+  <script src="./libs/sylvester.js"></script> <!-- matrix inverse -->
+  <script src="./libs/spline-editor.js"></script>
+</head>
+<body>
+  <!--script src="https://designstem.github.io/framework/vendor.js"></script-->
+  <script src="./index.js" type="module"></script>
+  <div id="app">
+    <header>
+      <div>
+        <a href="https://designstem.github.io/homepage">Home</a>
+        → <a href="https://designstem.github.io/homepage/colors">Colors</a>
+	→ <a href="./index.html">Color Vision</a>
+	→ <a href="./color-mixing.html">Color Mixing</a>
+      </div>
+    </header>
+    <div style="display: flex">
+      <div style="width: 24rem; padding: 2rem; border-right: var(--border-width) solid var(--primary)">
+        <h1 style="font-size: 5rem; line-height: 5rem;">Color Mixing</h1>
+        <h2>Explore RGB Color Mixing</h2>
+        <br><br>
+      </div>
+      <div>
+	<div id="box">
+	  <div id="red" class="color"></div>
+	  <div id="green" class="color"></div>
+	  <div id="blue" class="color"></div>
+	</div>
+	<div id="fig" class="fig"></div>
+      </div>
+      <script type="text/javascript">
+    		  function componentToHex(c) {
+		      c=normalize(c);
+		      var hex = c.toString(16);
+		      return hex.length == 1 ? "0" + hex : hex;
+		  }
+		  function normalize(c) {
+		      if(c<0) {
+			  c=0
+		      } else if (c>255) {
+			  c=255;
+		      }
+		      return 255-c;
+		  }
+		  function rgbToHex(r, g, b) {
+		      return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+		  }
+		  $('#red').splineEditor({
+		      initialKnots: [
+			  [50, 100],
+			  [100, 140],
+			  [160, 100],
+			  [220, 140],
+			  [250, 100]
+		      ]
+		  });
+		  $('#green').splineEditor({
+		      initialKnots: [
+			  [50, 100],
+			  [100, 140],
+			  [160, 100],
+			  [220, 140],
+			  [250, 100]
+		      ]
+		  });
+		  $('#blue').splineEditor({
+		      initialKnots: [
+			  [50, 100],
+			  [100, 140],
+			  [160, 100],
+			  [220, 140],
+			  [250, 100]
+		      ]
+		  });
+		  
+		  $('#red').splineEditor('showPlayhead');
+		  $('#green').splineEditor('showPlayhead');
+		  $('#blue').splineEditor('showPlayhead');
+		  var x = 0;
+
+		  var lastTime = new Date().getTime();
+		  var speed = 0.050;
+		  
+		  setInterval(function () {
+
+		      // This is smoother than incrementing directly
+		      var now = new Date().getTime();
+		      var elapsed = now - lastTime;
+		      lastTime = now;
+		      
+		      x += elapsed * speed;
+		      if (x > 300) {
+			  x -= 300;
+		      }
+		      $('#red').splineEditor('setPlayheadX', x);
+		      $('#green').splineEditor('setPlayheadX', x);
+		      $('#blue').splineEditor('setPlayheadX', x);
+		      var red = Math.round($('#red').splineEditor('getY', x));
+		      var green = Math.round($('#green').splineEditor('getY', x));
+		      var blue = Math.round($('#blue').splineEditor('getY', x));
+		      $('#fig').css('background-color', rgbToHex(red,green,blue));
+		  }, 30);
+	</script>
+
+    </div>
+  </div>
+</body>
