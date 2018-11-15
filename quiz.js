@@ -17,6 +17,7 @@ new Vue({
 	initialized:false,
 	running:false,
 	diff:0,
+	error:0,
         ok:0,
         fails:0}),
     computed: {
@@ -30,10 +31,13 @@ new Vue({
 	    this.running=true;
 	},
 	checkAnswer: function(red, green, blue) {
-	    this.diff=(Math.abs(this.target_red-red)+
+	    this.diff=Math.abs(this.target_red-red)+
 		Math.abs(this.target_green-green)+
-		       Math.abs(this.target_blue-blue))/3;
-	    if(this.initialized && this.diff<30) {
+		Math.abs(this.target_blue-blue);
+	    this.error=Math.max(Math.abs(this.target_red-red),
+				Math.abs(this.target_green-green),
+			       Math.abs(this.target_blue-blue));
+	    if(this.initialized && this.error<20) {
 		this.ok+=1;
 		this.running=false;
 	    }
