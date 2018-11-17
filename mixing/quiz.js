@@ -51,7 +51,8 @@ new Vue({
       <div >
         <a href="https://designstem.github.io/homepage">Home</a>
         → <a href="https://designstem.github.io/homepage/rgblamp">RGB Lamp</a>
-	→ <a href="./index.html">Color Vision</a>
+	→ <a href="../index.html">E-Tools</a>
+	→ <a href="./index.html">RGB Mixing</a>
       </div>
     </header>
     <div  style="display: flex"> 
