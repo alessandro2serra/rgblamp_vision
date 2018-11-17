@@ -10,10 +10,7 @@ new Vue({
   methods: { ...utils },
   template: `
   <div>
-    <header>
-      Sample scenario
-    </header>
-    <f-fetch-data url="./README.md">
+    <f-fetch-data url="./tutorial.md">
       <f-content-slides slot-scope="data" :content="data.value" />
     <f-fetch-data>
   </div>
