@@ -41,18 +41,24 @@ var s = function( sketch ) {
 	rSlider=sketch.select("#rslider");
 	gSlider=sketch.select("#gslider");
 	bSlider=sketch.select("#bslider");
+	rsSlider=sketch.select("#rsslider");
+	gsSlider=sketch.select("#gsslider");
+	bsSlider=sketch.select("#bsslider");
     }
     
     sketch.draw = function() {
 	var r = rSlider.value();
 	var g = gSlider.value();
 	var b = bSlider.value();
+	var rs = rsSlider.value();
+	var gs = gsSlider.value();
+	var bs = bsSlider.value();
 	sketch.background(0);
 
-	sketch.ambientLight(20);
-	sketch.directionalLight(r*2.5, 0, 0, -circles[0].x, -circles[0].y, -10);
-	sketch.directionalLight( 0, g*2.5, 0, -circles[1].x, -circles[1].y, -10);
-	sketch.directionalLight(0, 0, b*2.5, -circles[2].x, -circles[2].y, -10);
+	sketch.ambientLight(r*2.5,g*2,5,b*2.5);
+	sketch.directionalLight(rs*2.5, 0, 0, -circles[0].x, -circles[0].y, -10);
+	sketch.directionalLight( 0, gs*2.5, 0, -circles[1].x, -circles[1].y, -10);
+	sketch.directionalLight(0, 0, bs*2.5, -circles[2].x, -circles[2].y, -10);
 
 	sketch.push();
 	sketch.translate(0, 0, -100);

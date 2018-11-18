@@ -1,7 +1,24 @@
 var s = function( sketch ) {
     var rSlider, gSlider, bSlider;
     var capture;
-
+    var spotx=100;
+    var spoty=100;
+    sketch.mousePressed =function() {
+	if(sketch.mouseX<sketch.width &&
+	   sketch.mouseY<sketch.height) {
+	    spotx=sketch.mouseX;
+	    spoty=sketch.mouseY;
+	}
+	return true;
+    }
+    sketch.mouseDragged =function() {
+	if(sketch.mouseX<sketch.width &&
+	   sketch.mouseY<sketch.height) {
+	    spotx=sketch.mouseX;
+	    spoty=sketch.mouseY;
+	}
+	return true;
+    }
     sketch.setup = function() {
 	// create canvas
 	var c=sketch.createCanvas(710, 400);
@@ -12,6 +29,10 @@ var s = function( sketch ) {
 	rSlider=sketch.select("#rslider");
 	gSlider=sketch.select("#gslider");
 	bSlider=sketch.select("#bslider");
+	rsSlider=sketch.select("#rsslider");
+	gsSlider=sketch.select("#gsslider");
+	bsSlider=sketch.select("#bsslider");
+	isSlider=sketch.select("#isslider");
 	capture = sketch.createCapture(sketch.VIDEO);
 	capture.hide();
     }
@@ -21,7 +42,12 @@ var s = function( sketch ) {
 	var r = rSlider.value();
 	var g = gSlider.value();
 	var b = bSlider.value();
-
+	var b = bSlider.value();
+	var rs = rsSlider.value();
+	var gs = gsSlider.value();
+	var bs = bsSlider.value();
+	var is = isSlider.value();
+	var maxdist=is/100*2*sketch.width;
 	sketch.image(capture, 0, 0,710,400);
 	sketch.loadPixels();
 	
@@ -34,9 +60,17 @@ var s = function( sketch ) {
 		red = sketch.pixels[loc];
 		green = sketch.pixels[loc+1];
 		blue = sketch.pixels[loc+2];
-		red=sketch.constrain(red*r/100, 0, 255);
-		green=sketch.constrain(green*g/100, 0, 255);
-		blue=sketch.constrain(blue*b/100, 0, 255);
+		 var d = Math.abs(sketch.dist(x, y, spotx, spoty));
+		var adjustbrightness = 0;
+		if(d<maxdist) {
+		    adjustbrightness = (maxdist-d)/maxdist;
+		}
+		red=sketch.constrain(red*(r/100+(1-r/100)*(rs/100*adjustbrightness)),
+				     0, 255);
+		green=sketch.constrain(green*(g/100+(1-g/100)*(gs/100*adjustbrightness)),
+				       0, 255);
+		blue=sketch.constrain(blue*(b/100+(1-b/100)*(bs/100*adjustbrightness)),
+		   		      0, 255);
 		var pixloc = loc;
 		sketch.pixels[pixloc] = red;
 		sketch.pixels[pixloc+1] = green;
